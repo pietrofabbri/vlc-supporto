@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Questionario azienda</title>
+<style>
+:root{
+  --bg:#f5f6f7; --surface:#ffffff; --fg:#1b2129; --muted:#5d6672; --line:#dde1e6;
+  --accent:#1f4e79; --accent-soft:#e3ecf5; --on-accent:#ffffff;
+  --ok:#1e7a46; --warn:#9a5b00; --warn-soft:#fbefd9;
+  --f-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#12161b; --surface:#1a2027; --fg:#e6e9ed; --muted:#9aa4b0; --line:#2c343e;
+  --accent:#7fb0e0; --accent-soft:#1e3044; --on-accent:#0e1a26;
+  --ok:#6fcf97; --warn:#f2b45c; --warn-soft:#3a2b14; color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 120px;display:flex;flex-direction:column;gap:20px}
+h1{font-size:clamp(24px,5vw,32px);line-height:1.15;margin:0}
+.lead{margin:0;color:var(--muted);max-width:65ch}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.how{display:flex;flex-direction:column;gap:8px}
+.how ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--muted)}
+.who input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+/* barra fissa */
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.prog{flex:1 1 220px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.prog-txt{font-size:14px;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+nav.jump{display:flex;gap:6px;flex:1 1 100%;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
+nav.jump a{white-space:nowrap;flex:none;font-size:13px;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--surface)}
+nav.jump a.done{border-color:var(--ok);color:var(--ok)}
+/* sezioni */
+section.sez{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+section.sez>h2{margin:0;padding:14px 16px;font-size:19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+section.sez>h2 small{font-family:var(--f-mono);font-weight:400;font-size:13px;color:var(--muted)}
+section.sez>p.intro{margin:0;padding:10px 16px;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}
+.q{padding:16px;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q fieldset{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px}
+.q legend{padding:0;font-weight:600;display:flex;gap:10px}
+.q legend .n{font-family:var(--f-mono);font-weight:400;font-size:13px;color:var(--muted);padding-top:2px;min-width:2.4em}
+.q[data-ok="1"] legend .n{color:var(--ok)}
+.ind{margin-left:calc(2.4em + 10px)}
+.hint{font-size:13px;color:var(--muted)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;width:100%;height:100%}
+.opt span{display:inline-block;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 14px;font-size:15px;cursor:pointer;user-select:none}
+.opt input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.opt input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+details.why summary{cursor:pointer;color:var(--accent);font-size:14px;width:max-content;max-width:100%}
+details.why div{margin-top:6px;padding:8px 12px;border-left:3px solid var(--accent-soft);font-size:14px}
+.q.extra{background:var(--bg)}
+.clear{font:inherit;font-size:13px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0;width:max-content}
+textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-height:90px}
+/* fine */
+.end{display:flex;flex-direction:column;gap:12px}
+.btn{font:inherit;font-weight:600;font-size:16px;background:var(--accent);color:var(--on-accent);border:0;border-radius:8px;padding:12px 20px;cursor:pointer}
+.btn.ghost{background:none;color:var(--accent);border:1px solid var(--accent);font-weight:500;font-size:14px;padding:8px 14px}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible,.clear:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.msg{font-size:14px;padding:10px 12px;border-radius:6px;background:var(--warn-soft)}
+.msg.ok{background:var(--accent-soft)}
+.missing{font-size:14px;margin:0;padding-left:20px}
+.missing a{color:var(--accent)}
+footer{font-size:13px;color:var(--muted)}
+@media (max-width:600px){.ind{margin-left:0}}
+@media print{.sticky,.end .actions,details.why summary{display:none}details.why div{display:none}.opt input:not(:checked)+span{display:none}body{background:#fff}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <h1>Questionario sull'azienda</h1>
+    <p class="lead">Serve a fissare il quadro dell'azienda: vendita online, obblighi di legge e possibili bandi e finanziamenti. Quasi tutte le risposte si danno con un clic.</p>
+  </header>
+
+  <div class="box how">
+    <b>Come si compila (circa 20 minuti)</b>
+    <ol>
+      <li>Scegli una risposta per ogni domanda. Se non la sai, scegli <i>Non so</i>: va bene lo stesso.</li>
+      <li>Alla fine di ogni sezione c'è uno spazio facoltativo per aggiungere ciò che vuoi.</li>
+      <li>Sotto ogni domanda puoi aprire <i>Perché te lo chiedo</i> se vuoi sapere a cosa serve.</li>
+      <li>Puoi chiudere e riaprire il file: le risposte restano salvate in questo browser, su questo computer.</li>
+      <li>Alla fine premi <b>Scarica CSV</b> e manda il file scaricato in allegato a chi ti ha inviato il questionario.</li>
+    </ol>
+  </div>
+
+  <div class="box who">
+    <label>Nome dell'azienda <input type="text" id="azienda" autocomplete="organization"></label>
+    <label>Compilato da <input type="text" id="compilatore" autocomplete="name"></label>
+  </div>
+
+  <div class="sticky" id="sticky">
+    <div class="prog"><span class="prog-txt" id="prog-txt">0 risposte</span><div class="bar"><span id="prog-bar"></span></div></div>
+    <button class="btn ghost" id="dl-top" type="button">Scarica CSV</button>
+    <nav class="jump" id="jump" aria-label="Vai alla sezione"></nav>
+  </div>
+
+  <main id="form"></main>
+
+  <section class="sez">
+    <h2>Note finali <small>facoltative</small></h2>
+    <div class="q"><label for="note" class="hint" style="display:block;margin-bottom:6px">Qualsiasi altra cosa che le sezioni precedenti non coprono, dubbi, domande per noi.</label><textarea id="note"></textarea></div>
+  </section>
+
+  <div class="box end" id="end">
+    <b>Hai finito?</b>
+    <div id="end-status" class="msg" hidden></div>
+    <ul class="missing" id="missing" hidden></ul>
+    <div class="actions">
+      <button class="btn" id="dl" type="button">Scarica CSV</button>
+      <button class="btn ghost" id="print" type="button">Stampa / salva PDF</button>
+      <button class="btn ghost" id="reset" type="button">Cancella tutte le risposte</button>
+    </div>
+    <p class="hint" style="margin:0">Il file si chiama <span style="font-family:var(--f-mono)">questionario-…csv</span> e lo trovi nella cartella Download. Si apre anche con Excel.</p>
+  </div>
+
+  <footer>Le risposte restano sul tuo computer finché non invii il file. Questo questionario raccoglie informazioni: non è consulenza legale o fiscale.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="Non so";
+var VERSIONE="2026-10-15c";
+var SEZ=[
+ {id:"azienda",np:"Es. storia dell'azienda, attività principali, collane o linee di prodotto, progetti in partenza.",t:"L'azienda",items:[
+  {id:"q01",t:"Quante persone lavorano in azienda, titolari compresi?",o:["1–2","3–9","10–49","50 o più"],w:"Sotto le 10 persone (con fatturato fino a 2 milioni) sei una microimpresa: alcuni obblighi sono più leggeri e alcuni bandi sono riservati alle micro e piccole imprese."},
+  {id:"q02",t:"Fatturato annuo complessivo?",o:["Meno di 100.000 €","100.000 € – 2 milioni","2 – 10 milioni","Oltre 10 milioni"],w:"Insieme al numero di persone decide la dimensione d'impresa, che conta sia per gli obblighi sia per i bandi."},
+  {id:"q03",t:"Forma giuridica?",o:["Ditta individuale","Società di persone (snc, sas)","Società di capitali (srl, spa)","Altro (cooperativa, associazione…)"],w:"Cambia i dati da mostrare sul sito e l'accesso ad alcuni bandi."},
+  {id:"q04",t:"A chi vendi?",o:["Solo a privati","Soprattutto a privati","Soprattutto ad aziende o enti","Solo ad aziende o enti"],w:"Quasi tutte le regole su recesso, prezzi e recensioni valgono solo per le vendite ai privati."},
+  {id:"q05",t:"Cosa vendi o vuoi vendere online?",multi:true,o:["Libri cartacei","E-book o contenuti digitali","Servizi (stampa, rilegatura…)","Cartoleria e oggetti","Prodotti personalizzati su misura","Dispositivi o prodotti tecnici"],h:"Puoi sceglierne più di una.",w:"Ogni tipo ha regole diverse: i prodotti su misura sono esclusi dal recesso, gli e-book rientrano nell'accessibilità, i prodotti fisici nella sicurezza prodotti e negli imballaggi."},
+  {id:"q06",t:"I prodotti fisici che vendi portano il tuo marchio?",o:["Sì, tutti","Alcuni","No, rivendo prodotti di altri","Non vendo prodotti fisici"],w:"Chi mette il proprio marchio su un prodotto è considerato fabbricante e ha più obblighi di sicurezza e documentazione."},
+  {id:"q07",t:"Compri prodotti da fornitori fuori dall'UE?",o:["Sì","No",NS],w:"Chi importa da fuori UE ha obblighi aggiuntivi sulla sicurezza dei prodotti."},
+  {id:"e01",t:"Quanti titoli pubblichi in un anno?",o:["Non pubblico libri","1–5","6–20","Più di 20"],w:"Indica il peso dell'attività editoriale: cambia gli obblighi (ISBN, deposito legale, accessibilità degli e-book) e i bandi accessibili, come quelli per l'editoria e la traduzione."},
+  {id:"e02",t:"I libri che pubblichi hanno il codice ISBN?",o:["Sì, tutti","Solo alcuni","No","Non pubblico libri"],w:"Senza ISBN un libro è difficile da vendere su librerie online, marketplace e Google Shopping, e non entra nei cataloghi."},
+  {id:"e03",t:"Come arrivano i tuoi libri in libreria?",o:["Tramite un distributore","Vendita diretta alle librerie","Solo vendita diretta ai lettori","Non pubblico libri"],w:"Il canale di distribuzione incide su prezzi, sconti possibili e su come organizzare la vendita online."},
+  {id:"e04",t:"Chi sono i clienti principali dei servizi (stampa, rilegatura…)?",o:["Studenti","Università ed enti pubblici","Aziende e professionisti","Privati in generale","Non offro servizi"],w:"Cambia il modo di vendere: i privati online, gli enti pubblici spesso tramite il mercato elettronico della PA."}
+ ]},
+ {id:"canali",np:"Es. dove vendi meglio oggi, canali che vorresti aprire o chiudere, problemi con piattaforma o marketplace.",t:"Canali di vendita",items:[
+  {id:"q08",t:"Hai un sito con carrello e pagamento online?",o:["Sì, attivo","In costruzione","No, solo un sito vetrina","No, nessun sito"],w:"Molti obblighi dipendono da come è fatto il sito: pulsante di recesso, accessibilità, cookie."},
+  {id:"q09",t:"Su quale piattaforma è (o sarà) il sito?",o:["Shopify","WooCommerce (WordPress)","PrestaShop","Altro",NS],w:"Ogni piattaforma offre strumenti diversi: le soluzioni pratiche cambiano."},
+  {id:"q10",t:"Vendi anche sui marketplace?",o:["No","Solo Amazon","Altri (IBS, eBay, Etsy…)","Più di uno"],w:"Gli obblighi valgono anche sui profili venditore dei marketplace."},
+  {id:"q11",t:"Hai un negozio o laboratorio aperto al pubblico?",o:["Sì","No"],w:"Apre possibilità come il ritiro in negozio e incide su magazzino e incassi."},
+  {id:"q12",t:"Quanti ordini online ricevi in media al mese?",o:["Nessuno","1–50","51–500","Oltre 500"],w:"Serve a dare le priorità giuste."},
+  {id:"q13",t:"Vendi a privati in altri Paesi UE?",o:["No","Sì, meno di 10.000 € l'anno","Sì, oltre 10.000 € l'anno",NS],w:"Sopra 10.000 € l'anno di vendite a privati di altri Paesi UE si applica l'IVA del loro Paese."},
+  {id:"q14",t:"Sei iscritto al regime IVA OSS?",o:["Sì","No",NS],w:"È il sistema per dichiarare l'IVA estera senza aprire partite IVA in ogni Paese."}
+ ]},
+ {id:"vendite",np:"Es. corrieri e tariffe che usi, problemi frequenti con consegne o pagamenti, richieste dei clienti.",t:"Vendite, pagamenti e spedizioni",items:[
+  {id:"v01",t:"Quanto spende in media un cliente per ordine online?",o:["Meno di 20 €","20–50 €","50–150 €","Oltre 150 €",NS],w:"Lo scontrino medio decide la soglia di spedizione gratuita, se conviene il pagamento a rate e quanto si può spendere per acquisire un cliente."},
+  {id:"v02",t:"Quali metodi di pagamento accetti online?",multi:true,o:["Carte","PayPal","Satispay","Apple Pay / Google Pay","Bonifico","Contrassegno","Pagamento a rate","Nessuno ancora"],h:"Puoi sceglierne più di una.",w:"In Italia l'assenza di un metodo molto usato (es. PayPal o Satispay) fa perdere ordini al checkout."},
+  {id:"v03",t:"In quanto tempo spedisci di solito un ordine?",o:["In giornata","1–2 giorni","3–5 giorni","Oltre 5 giorni","Non spedisco"],w:"I tempi di spedizione vanno dichiarati prima dell'acquisto e influenzano molto la scelta del cliente."},
+  {id:"v04",t:"Come consegni gli ordini?",multi:true,o:["Un solo corriere","Più corrieri","Poste","Ritiro in sede o in negozio","Consegna a mano in zona","Non spedisco"],h:"Puoi sceglierne più di una.",w:"Più opzioni, compreso il ritiro, riducono costi e abbandoni del carrello."},
+  {id:"v05",t:"Quanti ordini ti vengono restituiti?",o:["Quasi nessuno","Meno del 5%","5–15%","Più del 15%",NS],w:"I resi pesano sui margini: se sono molti, di solito le schede prodotto vanno migliorate."},
+  {id:"v06",t:"Il sito si usa bene dallo smartphone?",o:["Sì","Abbastanza","No",NS],w:"La maggior parte delle visite arriva da telefono: un sito scomodo su mobile perde vendite."},
+  {id:"v07",t:"Hai la scheda dell'attività su Google (Google Maps)?",o:["Sì, aggiornata","Sì, ma trascurata","No",NS],w:"È gratuita e porta clienti in negozio o in laboratorio; conta anche per la visibilità nelle ricerche locali."},
+  {id:"v08",t:"Misuri visite e vendite del sito (Analytics, Search Console…)?",o:["Sì, li guardo regolarmente","Sono installati ma non li guardo","No",NS],w:"Senza dati non si capisce cosa funziona e cosa migliorare."}
+ ]},
+ {id:"recesso",np:"Es. casi di resi difficili, contestazioni ricevute, prodotti per cui il recesso non ha senso.",t:"Contratto e recesso",items:[
+  {id:"q15",t:"Hai condizioni generali di vendita sul sito?",o:["Sì, aggiornate nel 2026","Sì, ma più vecchie","No",NS],w:"Nel 2026 sono cambiate le regole sul recesso: condizioni precedenti vanno quasi certamente aggiornate."},
+  {id:"q16",t:"C'è un pulsante online per recedere dall'acquisto?",o:["Sì","No",NS],w:"È obbligatorio dal 19 giugno 2026 per chi vende online a privati."},
+  {id:"q17",t:"Le condizioni escludono dal recesso i prodotti personalizzati e gli e-book scaricati?",o:["Sì","No","Non vendo prodotti di questo tipo",NS],w:"Se non lo scrivi, il cliente può restituire anche un lavoro su misura o un e-book già scaricato."},
+  {id:"q18",t:"Chi paga le spese di reso?",o:["Noi","Il cliente","Dipende dal caso","Non è stabilito"],w:"Va detto prima dell'acquisto; se non lo dici, le spese restano a tuo carico."},
+  {id:"q19",t:"Nel sito o nelle condizioni c'è ancora il link alla piattaforma europea ODR?",o:["Sì","No",NS],w:"La piattaforma è chiusa dal 20 luglio 2025: il link va tolto."}
+ ]},
+ {id:"prezzi",np:"Es. come decidi prezzi e promozioni, periodi di saldi, accordi con distributori o librerie.",t:"Prezzi, promozioni e recensioni",items:[
+  {id:"q20",t:"Fai sconti mostrando il prezzo barrato?",o:["Spesso","A volte","Mai"],w:"Il prezzo barrato deve essere il più basso degli ultimi 30 giorni."},
+  {id:"q21",t:"Tieni uno storico dei prezzi praticati?",o:["Sì, automatico","Sì, a mano","No"],w:"È la prova da mostrare se uno sconto viene contestato."},
+  {id:"q22",t:"Mostri recensioni dei clienti sul sito?",o:["Sì, solo di chi ha acquistato","Sì, senza verifica","No"],w:"Se mostri recensioni devi dire se e come verifichi che siano autentiche."},
+  {id:"q23",t:"Fai sconti sul prezzo di copertina dei libri?",o:["No","Sì, entro il 5%","Sì, anche oltre il 5% in campagne promozionali","Non vendo libri"],w:"Per i libri la legge italiana limita gli sconti, anche online."}
+ ]},
+ {id:"privacy",np:"Es. chi ha accesso al sito e alla posta, incidenti passati, fornitori che trattano dati dei clienti.",t:"Privacy, cookie e sicurezza",items:[
+  {id:"q24",t:"Il banner dei cookie ha un pulsante per rifiutare?",o:["Sì, con \"Rifiuta\" o \"X\"","Solo \"Accetta\"","Non c'è banner",NS],w:"Rifiutare deve essere facile quanto accettare: è il controllo privacy più frequente."},
+  {id:"q25",t:"Usi strumenti come Google Analytics, Meta Pixel o simili?",o:["Sì","No",NS],w:"Richiedono quasi sempre il consenso e un contratto privacy con il fornitore."},
+  {id:"q26",t:"Invii newsletter o email promozionali?",o:["Sì, con doppia conferma dell'iscrizione","Sì","No"],w:"Servono un consenso dimostrabile e la disiscrizione facile."},
+  {id:"q27",t:"Hai un registro dei trattamenti dei dati?",o:["Sì","No",NS],w:"È il documento base del GDPR."},
+  {id:"s01",t:"Il sito ha copie di sicurezza (backup) automatiche?",o:["Sì, automatiche","Ogni tanto, a mano","No",NS],w:"Senza backup un attacco o un errore può far perdere sito, ordini e clienti."},
+  {id:"s02",t:"Gli accessi al sito, alla posta e ai pagamenti hanno la verifica in due passaggi?",o:["Sì, su tutti","Solo su alcuni","No",NS],w:"La verifica in due passaggi (codice sul telefono) blocca la maggior parte dei furti di account."},
+  {id:"s03",t:"Le email ai clienti partono da un indirizzo con il dominio aziendale (es. @azienda.it)?",o:["Sì","No, uso Gmail o simili",NS],w:"Un dominio aziendale configurato bene fa arrivare le email in posta in arrivo e non nello spam."}
+ ]},
+ {id:"access",np:"Es. segnalazioni ricevute, clienti con esigenze particolari, formati degli e-book.",t:"Accessibilità",items:[
+  {id:"q28",t:"Il sito è mai stato provato usando solo la tastiera o un lettore di schermo?",o:["Sì","No",NS],w:"È il test più rapido per capire se il sito è usabile da persone con disabilità; dal 2026 si può essere segnalati ad AgID."},
+  {id:"q29",t:"Pubblichi o vendi e-book?",o:["Sì, in formato accessibile (EPUB con metadati)","Sì, ma non so se accessibili","No"],w:"Gli e-book rientrano nelle regole europee sull'accessibilità."}
+ ]},
+ {id:"prodotti",np:"Es. carte e materiali usati, fornitori principali, certificazioni, tipi di confezione.",t:"Prodotti e imballaggi",items:[
+  {id:"q30",t:"Le schede prodotto indicano produttore, recapiti e avvertenze?",o:["Sì, tutte","Solo alcune","No",NS],w:"Sono informazioni obbligatorie per ogni prodotto venduto online ai privati."},
+  {id:"q31",t:"Usi parole come \"eco\", \"green\", \"sostenibile\"?",o:["Sì, solo sul sito","Sì, solo su confezioni ed etichette","Sì, in entrambi","No"],w:"Dal 27 settembre 2026 queste parole senza prove specifiche sono vietate."},
+  {id:"q32",t:"Hai certificazioni ambientali (FSC, PEFC, Ecolabel…)?",o:["Sì","In corso","No"],w:"Permettono affermazioni ambientali corrette e danno punti in molti bandi."},
+  {id:"q33",t:"Come spedisci gli ordini?",o:["Scatole e buste comprate da fornitori","Imballaggi personalizzati con il mio marchio","Riuso imballaggi ricevuti","Non spedisco prodotti fisici"],w:"Dal 12 agosto 2026 gli imballaggi hanno nuovi obblighi."},
+  {id:"q34",t:"Sei iscritto al CONAI?",o:["Sì","No",NS],w:"Chi immette imballaggi sul mercato paga il contributo ambientale."}
+ ]},
+ {id:"ai",np:"Es. strumenti che usi o vorresti usare, per cosa, dubbi.",t:"Intelligenza artificiale",items:[
+  {id:"q35",t:"Hai un chatbot o assistente automatico sul sito o su WhatsApp?",o:["Sì","No","Lo sto valutando"],w:"Dal 2 agosto 2026 deve dichiarare di essere un'AI."},
+  {id:"q36",t:"Usi l'AI per immagini o testi pubblicati?",o:["Spesso","A volte","Mai"],w:"Le immagini realistiche generate con AI vanno etichettate."}
+ ]},
+ {id:"bandi",np:"Es. progetti che vorresti finanziare, bandi già visti o tentati, scadenze che ti interessano.",t:"Bandi e finanziamenti",intro:"Servono a capire a quali bandi, contributi e finanziamenti agevolati l'azienda può partecipare. Nessuna risposta impegna a nulla.",items:[
+  {id:"b01",t:"Da quanto tempo esiste l'impresa?",o:["Meno di 2 anni","2–5 anni","5–10 anni","Più di 10 anni","Non ancora costituita"],w:"Molti bandi sono riservati a nuove imprese (spesso entro 3 o 5 anni dalla costituzione)."},
+  {id:"b02",t:"Dove ha sede operativa?",o:["Emilia-Romagna","Altra regione del Nord","Centro","Sud e isole"],w:"I bandi regionali e i fondi europei regionali dipendono dalla sede operativa."},
+  {id:"b03",t:"La sede è in una zona con agevolazioni speciali (ZLS, area montana o area interna)?",o:["Sì","No",NS],w:"Zone logistiche semplificate e aree interne o montane hanno crediti d'imposta e bandi dedicati."},
+  {id:"b04",t:"Attività principale (codice ATECO)?",o:["Stampa e servizi connessi","Editoria","Commercio al dettaglio","Altro",NS],w:"Molti bandi ammettono o escludono settori in base al codice ATECO."},
+  {id:"b05",t:"La maggioranza (quote e amministrazione) è femminile?",o:["Sì","No",NS],w:"Esistono fondi e punteggi aggiuntivi per l'imprenditoria femminile."},
+  {id:"b06",t:"La maggioranza è di persone sotto i 36 anni?",o:["Sì","No",NS],w:"Esistono incentivi dedicati all'imprenditoria giovanile."},
+  {id:"b07",t:"L'impresa è in regola con contributi (DURC) e tasse?",o:["Sì","No",NS],w:"È quasi sempre un requisito per ricevere qualunque contributo pubblico."},
+  {id:"b08",t:"Quanti aiuti pubblici \"de minimis\" ha ricevuto negli ultimi 3 anni?",o:["Nessuno","Meno di 50.000 €","50.000 – 300.000 €",NS],w:"Gli aiuti de minimis hanno un tetto di 300.000 € in tre anni: oltre non se ne possono ricevere altri. Il dato si trova sul Registro nazionale aiuti."},
+  {id:"b09",t:"Ha già partecipato a bandi o chiesto contributi?",o:["Mai","Sì, ma non ottenuti","Sì, ottenuti"],w:"Aiuta a capire l'esperienza con le procedure e la documentazione già pronta."},
+  {id:"b10",t:"Quali investimenti prevede nei prossimi 12–24 mesi?",multi:true,o:["Macchinari e attrezzature","Sito, e-commerce o software","Formazione","Energia (fotovoltaico, efficienza)","Marketing e fiere","Vendite all'estero","Assunzioni","Lavori su locali","Nessuno"],h:"Puoi sceglierne più di una.",w:"Ogni bando finanzia spese precise: conoscere i progetti permette di cercare quelli giusti."},
+  {id:"b11",t:"Budget complessivo indicativo di questi investimenti?",o:["Meno di 10.000 €","10.000 – 50.000 €","50.000 – 150.000 €","Oltre 150.000 €",NS],w:"Molti bandi hanno spese minime e massime ammissibili."},
+  {id:"b12",t:"L'azienda può anticipare la spesa prima di ricevere il contributo?",o:["Sì, tutta","In parte","No"],w:"La maggior parte dei contributi è un rimborso a spesa fatta e rendicontata."},
+  {id:"b13",t:"L'ultimo bilancio o dichiarazione è chiuso in…",o:["Utile","Pareggio","Perdita",NS],w:"Conta per finanziamenti agevolati, garanzie pubbliche e alcuni requisiti di solidità."},
+  {id:"b14",t:"Prevede assunzioni nei prossimi 12 mesi?",o:["No","1 persona","2 o più",NS],w:"Alcuni bandi premiano l'aumento dell'occupazione o lo richiedono."},
+  {id:"b15",t:"Ha certificazioni aziendali (ISO 9001, ISO 14001, parità di genere…)?",o:["Sì","In corso","No"],w:"Danno punteggi aggiuntivi in molte graduatorie."},
+  {id:"b16",t:"Collabora con università o centri di ricerca?",o:["Sì","No","Mi interesserebbe"],w:"Apre bandi per innovazione, ricerca e trasferimento tecnologico."},
+  {id:"b17",t:"È iscritta come startup o PMI innovativa?",o:["Sì","No",NS],w:"Queste imprese hanno agevolazioni dedicate."},
+  {id:"b18",t:"Spesa annua per l'energia del laboratorio o negozio?",o:["Meno di 5.000 €","5.000 – 20.000 €","Oltre 20.000 €",NS],w:"Per investimenti su efficienza ed energie rinnovabili esistono crediti d'imposta e bandi specifici."},
+  {id:"b19",t:"Vende o vuole vendere fuori dall'Italia?",o:["Già lo fa","Vorrebbe iniziare","No"],w:"Ci sono contributi per fiere, export digitale e consulenze per l'internazionalizzazione."},
+  {id:"b20",t:"Chi seguirebbe la domanda di un bando?",o:["Io","Il commercialista","Un consulente di finanza agevolata","Nessuno al momento"],w:"Le domande richiedono tempo e documenti: serve sapere chi può occuparsene."},
+  {id:"b21",t:"I locali dove lavori sono…",o:["Di proprietà","In affitto","In comodato o altro"],w:"Per spese su locali e impianti alcuni bandi chiedono la proprietà o un contratto con durata minima."},
+  {id:"b22",t:"Il legale rappresentante ha PEC e firma digitale?",o:["Sì, entrambe","Solo la PEC","No",NS],w:"Quasi tutte le domande si presentano online con firma digitale e PEC: senza, non si può partecipare."},
+  {id:"b23",t:"L'azienda è abilitata al mercato elettronico della PA (MePA)?",o:["Sì","No","Mi interesserebbe",NS],w:"Permette di vendere stampa, cancelleria e libri a università, scuole ed enti pubblici."},
+  {id:"b24",t:"Regime contabile?",o:["Forfettario","Semplificato","Ordinario",NS],w:"Alcuni crediti d'imposta e agevolazioni non valgono per il regime forfettario."}
+ ]},
+ {id:"org",np:"Es. persone e ruoli, consulenti esterni, strumenti gestionali, cosa ti fa perdere più tempo.",t:"Organizzazione",items:[
+  {id:"q38",t:"Hai un consulente legale o privacy di riferimento?",o:["Sì","No"],w:"I documenti legali vanno sempre fatti rivedere da un professionista."},
+  {id:"q39",t:"Chi gestisce la fatturazione elettronica?",o:["Il commercialista","Un software gestionale","La piattaforma e-commerce",NS],w:"Indica dove collegare gli ordini online."}
+ ]}
+];
+var ALL=[];SEZ.forEach(function(s){s.items.forEach(function(q){q.sez=s;ALL.push(q)})});
+var KEY="questionario-azienda-v1";
+var state={a:{},sn:{},azienda:"",compilatore:"",note:""};
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
+function load(){try{var s=localStorage.getItem(KEY);if(s){var p=JSON.parse(s);if(p&&typeof p==="object"){state.a=p.a||{};state.sn=p.sn||{};state.azienda=p.azienda||"";state.compilatore=p.compilatore||"";state.note=p.note||""}}}catch(e){}}
+function store(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function answered(q){var v=state.a[q.id];return Array.isArray(v)?v.length>0:!!v}
+
+function render(){
+  var n=0,html="";
+  SEZ.forEach(function(s){
+    html+='<section class="sez" id="s-'+s.id+'"><h2>'+esc(s.t)+'<small id="c-'+s.id+'"></small></h2>'+(s.intro?'<p class="intro">'+esc(s.intro)+'</p>':'');
+    s.items.forEach(function(q){
+      n++;var v=state.a[q.id];var type=q.multi?"checkbox":"radio";
+      html+='<div class="q" id="'+q.id+'" data-q="'+q.id+'"><fieldset><legend><span class="n">'+(n<10?"0":"")+n+'</span><span>'+esc(q.t)+'</span></legend>';
+      if(q.h)html+='<div class="hint ind">'+esc(q.h)+'</div>';
+      html+='<div class="opts ind">';
+      q.o.forEach(function(o){var chk=q.multi?(Array.isArray(v)&&v.indexOf(o)>-1):v===o;
+        html+='<label class="opt"><input type="'+type+'" name="'+q.id+'" value="'+esc(o)+'"'+(chk?" checked":"")+'><span>'+esc(o)+'</span></label>'});
+      html+='</div>';
+      html+='<div class="ind" style="display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline"><details class="why"><summary>Perché te lo chiedo</summary><div>'+esc(q.w)+'</div></details><button type="button" class="clear" data-clear="'+q.id+'"'+(answered(q)?"":" hidden")+'>Togli risposta</button></div>';
+      html+='</fieldset></div>';
+    });
+    html+='<div class="q extra"><label for="n-'+s.id+'"><b>Vuoi aggiungere qualcosa su questa parte?</b> <span class="hint">(facoltativo)</span></label><div class="hint" style="margin:2px 0 8px">'+esc(s.np||"")+'</div><textarea id="n-'+s.id+'" data-sn="'+s.id+'">'+esc(state.sn[s.id]||"")+'</textarea></div>';
+    html+='</section>';
+  });
+  $("form").innerHTML=html;
+  $("jump").innerHTML=SEZ.map(function(s){return '<a href="#s-'+s.id+'" id="j-'+s.id+'">'+esc(s.t)+'</a>'}).join("");
+  progress();
+}
+function progress(){
+  var d=ALL.filter(answered).length;
+  $("prog-txt").textContent=d+" di "+ALL.length+" risposte";
+  $("prog-bar").style.width=(d/ALL.length*100)+"%";
+  SEZ.forEach(function(s){var k=s.items.filter(answered).length;$("c-"+s.id).textContent=k+"/"+s.items.length;$("j-"+s.id).className=k===s.items.length?"done":""});
+  ALL.forEach(function(q){var el=$(q.id);if(el){el.setAttribute("data-ok",answered(q)?"1":"0");var c=el.querySelector("[data-clear]");if(c)c.hidden=!answered(q)}});
+}
+
+$("form").addEventListener("change",function(e){
+  var el=e.target;var box=el.closest(".q");if(!box)return;
+  var q=ALL.filter(function(x){return x.id===box.getAttribute("data-q")})[0];
+  if(q.multi){var vals=[].slice.call(box.querySelectorAll("input:checked")).map(function(i){return i.value});
+    var EX=["Nessuno","Nessuno ancora","Non spedisco"];
+    if(el.checked&&EX.indexOf(el.value)>-1){vals=[el.value];box.querySelectorAll("input").forEach(function(i){i.checked=i.value===el.value})}
+    else if(el.checked){vals=vals.filter(function(x){return EX.indexOf(x)<0});box.querySelectorAll("input").forEach(function(i){if(EX.indexOf(i.value)>-1)i.checked=false})}
+    state.a[q.id]=vals}
+  else state.a[q.id]=el.value;
+  store();progress();
+});
+$("form").addEventListener("click",function(e){
+  var b=e.target.closest("[data-clear]");if(!b)return;
+  var id=b.getAttribute("data-clear");delete state.a[id];
+  $(id).querySelectorAll("input").forEach(function(i){i.checked=false});
+  store();progress();
+});
+$("form").addEventListener("input",function(e){var t=e.target;if(t.hasAttribute&&t.hasAttribute("data-sn")){state.sn[t.getAttribute("data-sn")]=t.value;store()}});
+["azienda","compilatore","note"].forEach(function(k){$(k).addEventListener("input",function(){state[k]=$(k).value;store()})});
+
+/* CSV */
+function cell(v){v=String(v==null?"":v);return /[";\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function buildCsv(){
+  var now=new Date();var ts=now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate())+" "+pad(now.getHours())+":"+pad(now.getMinutes());
+  var lines=[["id","sezione","domanda","risposta"].join(";")];
+  lines.push(["_azienda","Dati","Nome dell'azienda",state.azienda].map(cell).join(";"));
+  lines.push(["_compilatore","Dati","Compilato da",state.compilatore].map(cell).join(";"));
+  lines.push(["_data","Dati","Data di compilazione",ts].map(cell).join(";"));
+  lines.push(["_versione","Dati","Versione questionario",VERSIONE].map(cell).join(";"));
+  SEZ.forEach(function(s){
+    s.items.forEach(function(q){var v=state.a[q.id];if(Array.isArray(v))v=v.join(" | ");lines.push([q.id,s.t,q.t,v||""].map(cell).join(";"))});
+    lines.push(["_nota_"+s.id,s.t,"Note aggiuntive sulla sezione",state.sn[s.id]||""].map(cell).join(";"));
+  });
+  lines.push(["_note","Note","Note libere",state.note].map(cell).join(";"));
+  return "﻿"+lines.join("\r\n")+"\r\n";
+}
+function pad(n){return (n<10?"0":"")+n}
+function slug(s){return (s||"azienda").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)||"azienda"}
+function download(){
+  var miss=ALL.filter(function(q){return !answered(q)});
+  var st=$("end-status"),ul=$("missing");
+  var blob=new Blob([buildCsv()],{type:"text/csv;charset=utf-8"});
+  var d=new Date();var name="questionario-"+slug(state.azienda)+"-"+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+".csv";
+  try{
+    if(window.navigator&&window.navigator.msSaveOrOpenBlob){window.navigator.msSaveOrOpenBlob(blob,name)}
+    else{var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove()},1000)}
+    st.hidden=false;st.className="msg ok";
+    st.textContent=(miss.length?"File scaricato con "+(ALL.length-miss.length)+" risposte su "+ALL.length+". ":"File scaricato con tutte le risposte. ")+"Lo trovi nella cartella Download con il nome "+name+": mandalo in allegato.";
+  }catch(e){st.hidden=false;st.className="msg";st.textContent="Il browser non ha permesso il download. Prova con un altro browser (Chrome, Edge, Firefox, Safari) oppure usa Stampa / salva PDF."}
+  if(miss.length){ul.hidden=false;ul.innerHTML="<li style='list-style:none;margin-left:-20px'>Domande senza risposta (puoi completarle e scaricare di nuovo):</li>"+miss.map(function(q){return '<li><a href="#'+q.id+'">'+esc(q.t)+'</a></li>'}).join("")}
+  else{ul.hidden=true;ul.innerHTML=""}
+  if(miss.length&&this&&this.id==="dl-top"){$("end").scrollIntoView()}
+}
+$("dl").addEventListener("click",download);
+$("dl-top").addEventListener("click",download);
+$("print").addEventListener("click",function(){window.print()});
+$("reset").addEventListener("click",function(){
+  if(!confirm("Cancellare tutte le risposte date finora?"))return;
+  state={a:{},sn:{},azienda:"",compilatore:"",note:""};store();
+  $("azienda").value="";$("compilatore").value="";$("note").value="";
+  $("end-status").hidden=true;$("missing").hidden=true;render();window.scrollTo(0,0);
+});
+
+load();
+$("azienda").value=state.azienda;$("compilatore").value=state.compilatore;$("note").value=state.note;
+render();
+})();
+</script>
+</body>
+</html>
