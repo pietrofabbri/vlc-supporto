@@ -29,6 +29,7 @@ graph TD
 | Cartella | Serve a | Da dove partire |
 |---|---|---|
 | [valutazione-idee/](valutazione-idee/00-indice.md) | Decidere **cosa** approfondire: schede, voti, classifica, sinergie | [02-classifica](valutazione-idee/02-classifica.md), [05-elenco-proposte](valutazione-idee/05-elenco-proposte.md) |
+| [schede-fascia-S.md](schede-fascia-S.md) · [altre-idee-in-breve.md](altre-idee-in-breve.md) | Colpo d'occhio: le 11 idee migliori con economia, test a 30 giorni e criterio di stop; le altre 56 in una riga | — |
 | [studi-di-mercato/](studi-di-mercato/00-indice.md) | Verificare **se regge**: dati, fonti, prove, numeri | [00-indice](studi-di-mercato/00-indice.md) |
 
 Ogni idea ha lo stesso codice nelle due cartelle (es. `NEW-05`).
