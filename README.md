@@ -1,11 +1,12 @@
 # vlc-supporto
 
-Materiale di supporto per Volta la Carta (Ferrara): appunti tecnici e configurazione degli strumenti.
+Materiale di supporto per Volta la Carta (Ferrara): strategia, appunti tecnici e configurazione degli strumenti.
 
 ## Indice
 
 | Documento | Contenuto |
 |---|---|
+| [strategia/](strategia/README.md) | Strategia di sviluppo: valutazione di 67 idee con 12 filtri, studi di mercato (Ferrara, Italia, UE), MePA, rischi, calendario, bandi, calcolatore dei costi |
 | [docs/archiviazione.md](docs/archiviazione.md) | Infrastruttura per l'archiviazione: tipi di storage, modelli di deployment, aspetti da progettare |
 | [docs/connettori-google.md](docs/connettori-google.md) | Lavorare sul Google Drive invece che in locale: connettori Google per Claude e stato del collegamento |
 

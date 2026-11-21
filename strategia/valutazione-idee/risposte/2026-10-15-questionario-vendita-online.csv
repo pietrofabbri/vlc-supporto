@@ -1,0 +1,94 @@
+﻿id;sezione;domanda;risposta
+_azienda;Dati;Nome dell'azienda;volta la carta
+_compilatore;Dati;Compilato da;Claudio Fabbri
+_data;Dati;Data di compilazione;2026-10-15 22:09
+_versione;Dati;Versione questionario;2026-10-15c
+q01;L'azienda;Quante persone lavorano in azienda, titolari compresi?;1–2
+q02;L'azienda;Fatturato annuo complessivo?;Meno di 100.000 €
+q03;L'azienda;Forma giuridica?;Ditta individuale
+q04;L'azienda;A chi vendi?;Soprattutto ad aziende o enti
+q05;L'azienda;Cosa vendi o vuoi vendere online?;Libri cartacei | E-book o contenuti digitali | Servizi (stampa, rilegatura…) | Cartoleria e oggetti | Prodotti personalizzati su misura
+q06;L'azienda;I prodotti fisici che vendi portano il tuo marchio?;Alcuni
+q07;L'azienda;Compri prodotti da fornitori fuori dall'UE?;No
+e01;L'azienda;Quanti titoli pubblichi in un anno?;6–20
+e02;L'azienda;I libri che pubblichi hanno il codice ISBN?;Sì, tutti
+e03;L'azienda;Come arrivano i tuoi libri in libreria?;Vendita diretta alle librerie
+e04;L'azienda;Chi sono i clienti principali dei servizi (stampa, rilegatura…)?;Università ed enti pubblici
+_nota_azienda;L'azienda;Note aggiuntive sulla sezione;
+q08;Canali di vendita;Hai un sito con carrello e pagamento online?;Sì, attivo
+q09;Canali di vendita;Su quale piattaforma è (o sarà) il sito?;WooCommerce (WordPress)
+q10;Canali di vendita;Vendi anche sui marketplace?;Altri (IBS, eBay, Etsy…)
+q11;Canali di vendita;Hai un negozio o laboratorio aperto al pubblico?;Sì
+q12;Canali di vendita;Quanti ordini online ricevi in media al mese?;1–50
+q13;Canali di vendita;Vendi a privati in altri Paesi UE?;No
+q14;Canali di vendita;Sei iscritto al regime IVA OSS?;Non so
+_nota_canali;Canali di vendita;Note aggiuntive sulla sezione;
+v01;Vendite, pagamenti e spedizioni;Quanto spende in media un cliente per ordine online?;20–50 €
+v02;Vendite, pagamenti e spedizioni;Quali metodi di pagamento accetti online?;Carte | Bonifico
+v03;Vendite, pagamenti e spedizioni;In quanto tempo spedisci di solito un ordine?;1–2 giorni
+v04;Vendite, pagamenti e spedizioni;Come consegni gli ordini?;Un solo corriere | Poste | Ritiro in sede o in negozio
+v05;Vendite, pagamenti e spedizioni;Quanti ordini ti vengono restituiti?;Quasi nessuno
+v06;Vendite, pagamenti e spedizioni;Il sito si usa bene dallo smartphone?;Non so
+v07;Vendite, pagamenti e spedizioni;Hai la scheda dell'attività su Google (Google Maps)?;Non so
+v08;Vendite, pagamenti e spedizioni;Misuri visite e vendite del sito (Analytics, Search Console…)?;Sono installati ma non li guardo
+_nota_vendite;Vendite, pagamenti e spedizioni;Note aggiuntive sulla sezione;
+q15;Contratto e recesso;Hai condizioni generali di vendita sul sito?;Sì, aggiornate nel 2026
+q16;Contratto e recesso;C'è un pulsante online per recedere dall'acquisto?;Sì
+q17;Contratto e recesso;Le condizioni escludono dal recesso i prodotti personalizzati e gli e-book scaricati?;No
+q18;Contratto e recesso;Chi paga le spese di reso?;Non è stabilito
+q19;Contratto e recesso;Nel sito o nelle condizioni c'è ancora il link alla piattaforma europea ODR?;Non so
+_nota_recesso;Contratto e recesso;Note aggiuntive sulla sezione;
+q20;Prezzi, promozioni e recensioni;Fai sconti mostrando il prezzo barrato?;Mai
+q21;Prezzi, promozioni e recensioni;Tieni uno storico dei prezzi praticati?;No
+q22;Prezzi, promozioni e recensioni;Mostri recensioni dei clienti sul sito?;No
+q23;Prezzi, promozioni e recensioni;Fai sconti sul prezzo di copertina dei libri?;No
+_nota_prezzi;Prezzi, promozioni e recensioni;Note aggiuntive sulla sezione;
+q24;Privacy, cookie e sicurezza;Il banner dei cookie ha un pulsante per rifiutare?;Non c'è banner
+q25;Privacy, cookie e sicurezza;Usi strumenti come Google Analytics, Meta Pixel o simili?;Sì
+q26;Privacy, cookie e sicurezza;Invii newsletter o email promozionali?;No
+q27;Privacy, cookie e sicurezza;Hai un registro dei trattamenti dei dati?;No
+s01;Privacy, cookie e sicurezza;Il sito ha copie di sicurezza (backup) automatiche?;Sì, automatiche
+s02;Privacy, cookie e sicurezza;Gli accessi al sito, alla posta e ai pagamenti hanno la verifica in due passaggi?;Non so
+s03;Privacy, cookie e sicurezza;Le email ai clienti partono da un indirizzo con il dominio aziendale (es. @azienda.it)?;No, uso Gmail o simili
+_nota_privacy;Privacy, cookie e sicurezza;Note aggiuntive sulla sezione;
+q28;Accessibilità;Il sito è mai stato provato usando solo la tastiera o un lettore di schermo?;Non so
+q29;Accessibilità;Pubblichi o vendi e-book?;No
+_nota_access;Accessibilità;Note aggiuntive sulla sezione;
+q30;Prodotti e imballaggi;Le schede prodotto indicano produttore, recapiti e avvertenze?;No
+q31;Prodotti e imballaggi;"Usi parole come ""eco"", ""green"", ""sostenibile""?";Sì, solo sul sito
+q32;Prodotti e imballaggi;Hai certificazioni ambientali (FSC, PEFC, Ecolabel…)?;No
+q33;Prodotti e imballaggi;Come spedisci gli ordini?;Riuso imballaggi ricevuti
+q34;Prodotti e imballaggi;Sei iscritto al CONAI?;No
+_nota_prodotti;Prodotti e imballaggi;Note aggiuntive sulla sezione;
+q35;Intelligenza artificiale;Hai un chatbot o assistente automatico sul sito o su WhatsApp?;No
+q36;Intelligenza artificiale;Usi l'AI per immagini o testi pubblicati?;Mai
+_nota_ai;Intelligenza artificiale;Note aggiuntive sulla sezione;
+b01;Bandi e finanziamenti;Da quanto tempo esiste l'impresa?;Più di 10 anni
+b02;Bandi e finanziamenti;Dove ha sede operativa?;Emilia-Romagna
+b03;Bandi e finanziamenti;La sede è in una zona con agevolazioni speciali (ZLS, area montana o area interna)?;No
+b04;Bandi e finanziamenti;Attività principale (codice ATECO)?;Editoria
+b05;Bandi e finanziamenti;La maggioranza (quote e amministrazione) è femminile?;No
+b06;Bandi e finanziamenti;La maggioranza è di persone sotto i 36 anni?;No
+b07;Bandi e finanziamenti;L'impresa è in regola con contributi (DURC) e tasse?;Sì
+b08;Bandi e finanziamenti;"Quanti aiuti pubblici ""de minimis"" ha ricevuto negli ultimi 3 anni?";Nessuno
+b09;Bandi e finanziamenti;Ha già partecipato a bandi o chiesto contributi?;Sì, ma non ottenuti
+b10;Bandi e finanziamenti;Quali investimenti prevede nei prossimi 12–24 mesi?;Sito, e-commerce o software
+b11;Bandi e finanziamenti;Budget complessivo indicativo di questi investimenti?;Meno di 10.000 €
+b12;Bandi e finanziamenti;L'azienda può anticipare la spesa prima di ricevere il contributo?;In parte
+b13;Bandi e finanziamenti;L'ultimo bilancio o dichiarazione è chiuso in…;Utile
+b14;Bandi e finanziamenti;Prevede assunzioni nei prossimi 12 mesi?;No
+b15;Bandi e finanziamenti;Ha certificazioni aziendali (ISO 9001, ISO 14001, parità di genere…)?;No
+b16;Bandi e finanziamenti;Collabora con università o centri di ricerca?;Mi interesserebbe
+b17;Bandi e finanziamenti;È iscritta come startup o PMI innovativa?;No
+b18;Bandi e finanziamenti;Spesa annua per l'energia del laboratorio o negozio?;Meno di 5.000 €
+b19;Bandi e finanziamenti;Vende o vuole vendere fuori dall'Italia?;Vorrebbe iniziare
+b20;Bandi e finanziamenti;Chi seguirebbe la domanda di un bando?;Nessuno al momento
+b21;Bandi e finanziamenti;I locali dove lavori sono…;In affitto
+b22;Bandi e finanziamenti;Il legale rappresentante ha PEC e firma digitale?;Sì, entrambe
+b23;Bandi e finanziamenti;L'azienda è abilitata al mercato elettronico della PA (MePA)?;Sì
+b24;Bandi e finanziamenti;Regime contabile?;Ordinario
+_nota_bandi;Bandi e finanziamenti;Note aggiuntive sulla sezione;
+q38;Organizzazione;Hai un consulente legale o privacy di riferimento?;No
+q39;Organizzazione;Chi gestisce la fatturazione elettronica?;Un software gestionale
+_nota_org;Organizzazione;Note aggiuntive sulla sezione;
+_note;Note;Note libere;

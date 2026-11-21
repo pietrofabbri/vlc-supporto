@@ -1,0 +1,69 @@
+codice,idea,P12,SCA,INV,SFO,FAC,ASS,RIC,DUR,ESP,PIC,RIS,INT,punteggio,fascia,tipologie,posizione_v2,euro_ora,confidenza,territorio,stato
+PESI,,3,"2,5",2,"2,5",1,2,2,2,"1,5","1,5",1,"2,5",,,,,,,,
+NEW-04,Vendere alla pubblica amministrazione tramite MePA,5,3,5,4,5,5,4,5,4,4,4,5,"88,5",S,🟢 🔵,8,—,1,Italia,attiva
+DOC-02,Manuali con il marchio degli enti di formazione,4,3,5,4,4,5,5,4,3,4,4,5,"83,8",S,🟢 🔵,14,60,0,Regione,attiva
+DOC-08,"Riviste e notiziari per associazioni, ordini e parrocchie",4,3,5,4,4,5,5,4,3,4,4,5,"83,8",S,🟢 🔵,6,50,0,Provincia e regione,attiva
+DOC-07,Diari d'istituto per le scuole,4,3,4,4,4,5,5,4,4,4,4,5,"83,4",S,🟢 🔵,2,55,0,Regione,attiva
+DOC-01,Manuali di istruzioni e documentazione di conformità,5,4,4,3,4,4,4,5,4,4,2,5,"82,6",S,🟢 🔵 💰,10,45,1,"Regione, poi Italia",attiva
+ACC-03,E-book accessibili per piccoli editori ed enti,3,3,5,4,5,3,4,5,5,5,4,5,"82,6",S,🔵 🟣,3,50,1,Italia ed Europa,attiva
+NEW-06,Servizi di autopubblicazione con un marchio separato,4,3,5,3,5,5,4,4,4,4,3,5,"81,3",S,🟢 🔵,9,45,0,Italia,attiva
+NEW-01,"Stampa su richiesta per conto di editori, autori e associazioni",3,4,5,4,5,5,5,4,4,4,4,3,"81,3",S,🔵 💰,5,50,0,Italia,attiva
+DOC-05,"Diplomi, attestati e pergamene di pregio",4,2,5,4,5,5,4,4,3,4,4,5,"80,9",S,🟢 🔵,22,70,0,"Regione, Italia tramite MePA",attiva
+UNI-02,Agende accademiche pagate dagli sponsor,4,2,4,4,3,5,5,4,4,4,4,5,"80,4",S,🟢 🔵,16,45,0,"Provincia, poi altre città universitarie",attiva
+DOC-06,Quaderni di laboratorio a pagine numerate,2,2,5,5,5,5,5,4,3,4,5,5,"80,4",S,🔵,17,80,0,"Regione, Italia tramite MePA",attiva
+DOC-10,Cataloghi e listini multilingue per PMI esportatrici,4,3,5,3,4,4,4,4,4,4,4,5,"79,6",A,🟢 🔵,18,45,0,Regione,attiva
+NEW-02,"Il ""motore documenti"": un'unica catena di produzione per tutti i settori",3,4,2,4,5,5,5,5,5,5,3,3,"79,6",A,🔵 🟣 🟡 💰,1,—,0,Italia,attiva
+CAR-11,Inserti per i pacchi dei piccoli marchi online,4,3,5,4,5,5,4,4,5,3,3,3,"79,1",A,🟢 🔵 🟣,4,55,0,Italia ed Europa,attiva
+CAR-04,Stampa per conto di designer di partecipazioni e cancelleria,4,3,5,4,5,5,4,4,4,4,2,3,"78,3",A,🟢 🔵,11,55,0,Italia ed Europa,attiva
+UNI-01,Sistema di ordini tesi in licenza ad altre copisterie,1,4,2,4,4,5,5,4,5,5,3,5,"76,2",A,🔵 🟣 🟡 💰,13,120,1,Italia,attiva
+DOC-09,Diari e quaderni per pazienti,3,2,4,4,4,5,4,4,4,4,3,5,"76,2",A,🔵,25,50,0,"Italia, tramite associazioni",attiva
+SER-03,Libri commemorativi con le onoranze funebri,3,3,5,4,4,5,4,5,3,4,3,3,"76,2",A,🔵,15,50,1,"Provincia, poi regione",attiva
+DOC-11,Annuari scolastici di fine ciclo,3,2,5,3,4,5,4,4,4,4,3,5,"75,7",A,🔵,36,40,0,Regione,attiva
+SER-09,Il libro della vita: memorie raccolte al telefono,4,4,2,4,5,4,3,5,5,4,3,3,"75,7",A,🟣 💰,7,60,0,"Italia, poi italiani all'estero",attiva
+SER-10,Ricettari e libri di famiglia raccolti con un link,3,3,5,4,5,5,2,4,5,4,4,3,"75,3",A,🟣 🟠,24,50,0,Italia,attiva
+EDI-09,Antologie dei premi e concorsi letterari,4,2,5,4,4,3,5,4,4,4,4,3,"75,3",A,🟢 🔵,12,50,0,Italia,attiva
+SER-01,Menu e carte dei vini in abbonamento,3,3,4,4,3,5,5,4,3,4,4,3,"74,5",B,🔵,23,55,0,Provincia e regione,attiva
+CAR-08,"Cancelleria con il marchio di aziende, hotel e cantine",4,3,5,3,3,5,4,4,3,3,4,3,"73,6",B,🟢 🔵,34,45,0,Regione,attiva
+NEW-09,Produzione per conto di marchi di cancelleria esteri,3,3,3,3,4,5,5,4,5,4,3,3,"73,2",B,🔵 🟣,21,30,0,Estero,attiva
+ACC-01,Versioni ad alta leggibilità per studenti con DSA,4,3,4,3,4,3,4,5,4,4,3,3,"72,8",B,🟢 🔵,19,40,1,"Regione, poi Italia",attiva
+NEW-05,"""Il classico con il tuo marchio"": strenne aziendali",4,3,4,3,4,5,3,4,4,3,4,3,"72,3",B,🟢,35,60,0,Regione,attiva
+DOC-13,"Fascicoli, perizie e copie di cortesia per professionisti",4,2,5,3,5,5,5,3,2,3,3,3,"71,1",B,🟢,37,40,0,Provincia,attiva
+CAR-09,Etichette e fasce in carta pregiata per piccoli produttori,3,2,4,4,4,4,5,4,4,3,3,3,"70,6",B,🔵,32,45,0,Regione,attiva
+GIO-03,Mazzi di carte per terapeuti e formatori,3,2,4,4,5,4,3,4,4,4,4,3,"70,2",B,🟠,30,45,0,Italia,attiva
+NEW-11,Rete di produzione distribuita tra copisterie in licenza,1,4,4,3,4,4,4,4,5,5,3,3,"69,8",B,🔵 🟣 🟡 💰,33,70,0,Italia,attiva
+EDI-01,Riedizioni di libri fuori catalogo e di pubblico dominio,2,2,5,4,5,4,3,4,4,5,3,3,"69,8",B,🟠 🟡,26,60,1,Italia,attiva
+EDI-05,Italiano per stranieri e guide per studenti internazionali,3,2,4,4,4,4,4,4,3,4,4,3,"69,8",B,🔵,45,45,0,"Provincia, poi Italia",attiva
+SER-02,Guide di benvenuto per affitti brevi e hotel,3,2,4,5,5,4,3,3,4,4,3,3,"69,8",B,🟠,38,60,1,Italia,attiva
+GIO-01,"Giochi investigativi su carta, con un marchio tuo",3,3,3,4,5,4,3,3,5,4,3,3,"69,4",B,🟣 🟠,41,50,0,Italia ed estero,attiva
+EXP-02,Cancelleria italiana di pregio per i mercati esteri,3,3,2,3,5,5,4,4,5,3,3,3,"69,4",B,🔵 🟣,27,35,0,Estero,attiva
+EDI-06,Libri in italiano per i figli degli italiani all'estero,2,2,4,4,5,4,3,4,4,5,4,3,"68,9",B,🟠 🟡,43,40,0,Estero,attiva
+NEW-03,Licenza del motore documenti ad altre tipografie,1,4,1,4,4,4,5,4,5,5,3,3,"68,5",B,🔵 🟣 🟡 💰,29,110,0,Italia,attiva
+DOC-12,Report di sostenibilità per PMI,3,3,5,3,4,3,4,3,4,4,3,3,"68,5",B,,47,55,0,Italia,attiva
+SER-08,Materiali cartacei rapidi per mostre ed eventi,3,2,5,3,4,5,3,4,3,3,4,3,"68,1",B,,51,40,1,Provincia e regione,attiva
+NEW-12,Kit didattici cartacei per le scuole,3,2,3,4,5,5,3,4,4,3,3,3,"68,1",B,🟠,44,50,0,Italia,attiva
+ACC-02,Edizioni a caratteri grandi per anziani e ipovedenti,2,1,4,4,5,4,3,5,3,5,4,3,"67,2",C,🟠 🟡,46,45,0,Italia,attiva
+GIO-02,Prototipi e piccole tirature per autori di giochi e libri-gioco,3,2,3,3,5,4,3,4,4,4,4,3,"66,4",C,,48,35,0,Italia,attiva
+EXP-01,Distribuzione dei micro-editori verso i bookshop,3,1,4,3,4,4,4,4,4,4,3,3,"66,0",C,🔵,39,30,0,"Regione, poi Italia",attiva
+EXP-04,Riproduzioni e facsimili di soggetti italiani per i bookshop di musei esteri,2,2,3,3,4,4,3,4,4,4,2,5,"65,5",C,,60,35,0,Estero,attiva
+NEW-08,"Stampa e rilegatura di libri contabili, sociali e raccolte di atti",2,1,5,3,4,5,5,3,2,4,4,3,"65,1",C,,56,40,0,Provincia,attiva
+EXP-03,Ufficio export per piccoli produttori italiani di cartoleria,2,2,5,2,2,4,4,4,4,5,3,3,"64,7",C,🔵 🟡,57,25,0,Estero,attiva
+EDI-02,Traduzioni italiane di opere straniere di pubblico dominio,2,1,4,4,5,4,3,4,3,5,3,3,"64,7",C,🟠 🟡,52,25,0,Italia,attiva
+CAR-05,Ex libris personalizzati,2,1,5,4,5,4,2,3,4,4,4,3,"63,8",C,🟠,59,45,0,Italia ed estero,attiva
+EDI-08,"Guide e libretti dei borghi e del territorio, con enti locali",3,2,4,3,3,3,3,4,3,4,4,3,"63,4",C,,50,35,1,Provincia,attiva
+DOC-03,Libri aziendali e istituzionali,4,3,5,2,3,4,1,3,2,3,4,3,"61,7",C,🟢,63,40,0,Provincia e regione,attiva
+DOC-04,Stampa riservata di prove d'esame e test,3,2,4,3,3,4,3,3,2,3,2,3,"59,1",C,,65,40,0,Regione,attiva
+EDI-03,Audiolibri del catalogo,1,1,4,5,5,2,3,3,3,5,3,3,"59,1",C,🟠,53,50,0,Italia,attiva
+EDI-04,Edizioni limitate e numerate per bibliofili,2,1,3,3,4,4,2,4,4,4,4,3,"59,1",C,,67,35,0,Italia ed estero,attiva
+SER-07,Album fotografici di pregio per fotografi professionisti,2,2,3,3,5,3,4,3,3,3,3,3,"58,7",C,,62,30,0,Regione,attiva
+CAR-01,Carte pregiate al foglio e in piccole quantità,3,2,3,3,5,5,4,4,4,4,4,3,,,,28,30,0,Italia ed Europa,esclusa: D3: i fornitori non permettono di rivendere la carta al foglio
+CAR-02,"Abbonamento ""carta del mese"" per designer e appassionati",2,2,4,4,5,5,5,3,4,4,3,1,,,,31,35,0,Italia ed Europa,esclusa: Istinto: No · D3: rivendita al foglio non permessa
+CAR-03,Quaderni da fondi di magazzino di carte pregiate,4,3,4,3,5,5,3,4,5,1,4,3,,,,20,40,0,Italia ed estero,esclusa: D2: non potete comprare fondi di magazzino e fine serie
+CAR-06,Kit di legatoria fai da te,2,1,4,5,5,4,2,3,3,3,4,1,,,,61,40,0,Italia,esclusa: Istinto: No
+CAR-07,"Portfolio rilegati per studenti di architettura, design e belle arti",3,2,5,3,4,5,3,4,3,2,4,1,,,,49,40,0,Provincia e regione,esclusa: Istinto: No
+CAR-10,"Cancelleria ufficiale su licenza di atenei, musei e città",3,3,4,4,3,5,4,4,4,2,3,1,,,,42,50,0,"Provincia, poi altre città",esclusa: Istinto: No
+EDI-07,Vendita all'estero dei diritti di traduzione,1,1,5,5,4,4,2,4,4,5,4,1,,,,55,100,0,Estero,esclusa: Istinto: No
+NEW-07,Giochi investigativi per la formazione aziendale,3,2,4,4,4,4,4,4,4,4,3,1,,,,40,60,0,Italia,esclusa: Istinto: No
+NEW-10,Cofanetto libro più prodotto del territorio,3,2,3,3,3,4,3,4,3,1,3,1,,,,66,35,0,Regione,esclusa: Istinto: No
+SER-04,Libri di storia di famiglia per i discendenti di emigrati,3,2,4,2,4,4,1,4,5,4,3,1,,,,58,30,0,Estero,esclusa: Istinto: No
+SER-05,Restauro e rilegatura di libri antichi e di famiglia,2,2,3,1,4,3,3,5,3,4,4,1,,,,64,25,0,Italia,esclusa: Istinto: No
+SER-06,Scatole e cofanetti rivestiti,4,3,3,3,3,3,4,4,4,1,3,1,,,,54,30,0,Regione,esclusa: Istinto: No
