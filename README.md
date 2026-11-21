@@ -10,6 +10,7 @@ Materiale di supporto per Volta la Carta (Ferrara): strategia, appunti tecnici e
 | [strategia/](strategia/README.md) | Strategia di sviluppo: valutazione di 67 idee con 12 filtri, studi di mercato (Ferrara, Italia, UE), MePA, rischi, calendario, bandi, calcolatore dei costi |
 | [docs/archiviazione.md](docs/archiviazione.md) | Infrastruttura per l'archiviazione: tipi di storage, modelli di deployment, aspetti da progettare |
 | [docs/connettori-google.md](docs/connettori-google.md) | Lavorare sul Google Drive invece che in locale: connettori Google per Claude e stato del collegamento |
+| [docs/sicurezza-web/](docs/sicurezza-web/README.md) | Sicurezza di siti e app: best practice 2026, novità verificate, applicazione a rilegaretesi.it e voltalacarta.it, strumenti, cose da fare |
 
 ## Decisione chiave
 
