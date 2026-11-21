@@ -7,6 +7,7 @@ Materiale di supporto per Volta la Carta (Ferrara): strategia, appunti tecnici e
 | Documento | Contenuto |
 |---|---|
 | [ecommerce-normativa/](ecommerce-normativa/README.md) | Vendita online e obblighi di legge IT/UE: sintesi e prossimi passi, quadro dell'azienda dai questionari, calendario e 10 moduli normativi con monitoraggio mensile, registro di conformità, buone pratiche per sito ed e-commerce, modelli di documenti, checklist, quiz, skill di verifica |
+| [incassi-fisco-konga/](incassi-fisco-konga/README.md) | Incassi, fisco e gestionale: strategia di incasso (Stripe, POS, Satispay, PayPal, bonifico), commissioni a confronto, IVA sui libri, corrispettivi, fornitori esteri e TD17, fatture alla PA, Konga Lite, roadmap "solo report", chiusura mensile, script Python, questionario del titolare |
 | [strategia/](strategia/README.md) | Strategia di sviluppo: valutazione di 67 idee con 12 filtri, studi di mercato (Ferrara, Italia, UE), MePA, rischi, calendario, bandi, calcolatore dei costi |
 | [docs/archiviazione.md](docs/archiviazione.md) | Infrastruttura per l'archiviazione: tipi di storage, modelli di deployment, aspetti da progettare |
 | [docs/connettori-google.md](docs/connettori-google.md) | Lavorare sul Google Drive invece che in locale: connettori Google per Claude e stato del collegamento |

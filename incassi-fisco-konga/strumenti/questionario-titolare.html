@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Questionario del titolare</title>
+<style>
+/* Funziona offline: nessun font o script esterno. Colonna unica, "fascicoli" come segnature di stampa. */
+:root{
+  --bg:#F6F6F2; --surface:#FFFFFF; --fg:#1C1F24; --muted:#5F6470; --line:#DEDFD8;
+  --accent:#2B3FA0; --ok:#2F7D4F; --warn:#9A5B00;
+  --display:Charter,"Bitstream Charter","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#15171B; --surface:#1D2026; --fg:#E8E8E3; --muted:#A0A4AE; --line:#30343C;
+  --accent:#93A5FF; --ok:#6CC892; --warn:#E3A857; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 96px max(16px,env(safe-area-inset-left,0px))}
+
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar-in{max-width:760px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.track{flex:1 1 140px;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .3s}
+.count{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+
+header{padding:40px 0 8px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(32px,6vw,46px);line-height:1.08;margin:0 0 14px}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+.steps{margin:20px 0 0;padding:16px 18px 16px 36px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.steps li{margin:4px 0}
+
+section{margin-top:44px}
+.sec-head{display:flex;gap:14px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:8px;flex-wrap:wrap}
+.sig{font-family:var(--display);font-size:15px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+h2{font-family:var(--display);font-weight:500;font-size:26px;margin:0}
+
+.q{padding:20px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q-top{display:flex;gap:10px;align-items:baseline}
+.qn{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);min-width:2.2em}
+.qt{font-weight:600;margin:0;min-width:0}
+.qhint{font-size:13px;color:var(--muted);margin:4px 0 0 calc(2.2em + 10px)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0 calc(2.2em + 10px)}
+.opt{font:inherit;font-size:15px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;text-align:left;line-height:1.3}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.cell:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.opt.unsure{border-style:dashed;color:var(--muted)}
+.opt.unsure[aria-pressed="true"]{color:var(--bg)}
+.q.done .qn{color:var(--accent);font-weight:600}
+
+.grid{margin:12px 0 0 calc(2.2em + 10px);overflow-x:auto}
+.grid table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}
+.grid th,.grid td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:center}
+.grid td:first-child{text-align:left;font-weight:500}
+.grid thead th{font-weight:500;color:var(--muted);font-size:12px}
+.cell{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;padding:0}
+.cell:hover{border-color:var(--accent)}
+.cell[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+
+.note{margin-top:20px;padding:16px 18px;border:1px dashed var(--line);border-radius:10px;background:var(--surface);display:grid;gap:8px}
+.note label{font-weight:600;font-size:15px}
+.note label span{font-weight:400;color:var(--muted)}
+.note p{margin:0;font-size:13px;color:var(--muted)}
+.note textarea{min-height:84px;font:15px/1.45 var(--body);resize:vertical}
+.note textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.end{margin-top:48px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;gap:12px}
+.end h2{font-size:24px}
+.end p{margin:0;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{font:inherit;font-weight:600;font-size:15px;border-radius:8px;padding:10px 16px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--bg)}
+.btn.sec{background:transparent;color:var(--accent)}
+.btn.small{padding:6px 12px;font-size:14px}
+.msg{font-size:14px;min-height:1.4em;margin:0}
+.msg.ok{color:var(--ok)} .msg.warn{color:var(--warn)}
+textarea{width:100%;min-height:160px;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:10px}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+@media (max-width:480px){.opts,.qhint,.grid{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+  <span class="count" id="count">0 di 0</span>
+  <button class="btn small" id="dl-top" type="button">Scarica CSV</button>
+</div></div>
+
+<div class="wrap">
+  <header>
+    <h1>Questionario del titolare</h1>
+    <p class="lead">Domande brevi, tutte a scelta, nessuna cifra da indicare. Servono a capire come funzionano oggi vendite, incassi, fatture e Konga in Volta la Carta, per decidere cosa semplificare e automatizzare.</p>
+    <ol class="steps">
+      <li>Rispondi cliccando sulle opzioni. «Non so» va benissimo.</li>
+      <li>Puoi chiudere e riaprire il file: le risposte restano su questo computer, nello stesso browser.</li>
+      <li>Alla fine premi <strong>Scarica CSV</strong> e rimanda il file per email, in allegato.</li>
+    </ol>
+  </header>
+
+  <main id="q"></main>
+
+  <div class="end" id="end">
+    <h2>Ultimo passo</h2>
+    <p>Premi «Scarica CSV»: il file finisce nella cartella Download. Allegalo a una risposta all'email con cui hai ricevuto questo questionario.</p>
+    <div class="btns">
+      <button class="btn" id="dl" type="button">Scarica CSV</button>
+      <button class="btn sec" id="copy" type="button">Copia le risposte come testo</button>
+    </div>
+    <p class="msg" id="msg" role="status"></p>
+    <textarea id="sum" readonly aria-label="Risposte in formato testo" hidden></textarea>
+  </div>
+</div>
+
+<script>
+var NS = "Non so";
+var PESO = ["Non lo usiamo","Marginale","Importante","Principale"];
+var SEZ = [
+ {t:"L'azienda", q:[
+  {id:"forma",t:"Che forma giuridica ha la casa editrice?",o:["Ditta individuale","SRL / SRLS","SNC / SAS","Associazione o cooperativa",NS]},
+  {id:"regime",t:"In quale regime fiscale siete?",o:["Forfettario","Semplificato","Ordinario",NS]},
+  {id:"liq_iva",t:"L'IVA la liquidate…",o:["Ogni mese","Ogni trimestre","Non la liquidiamo (forfettario)",NS]},
+  {id:"amm_chi",t:"Chi si occupa dell'amministrazione?",o:["Solo io","Io e un collaboratore","Soprattutto il commercialista"]},
+  {id:"comm_ruolo",t:"Con il commercialista come lavorate?",o:["Tiene lui tutta la contabilità","Registro io in Konga, lui controlla","Un po' e un po'"]},
+  {id:"fogli",t:"Oltre a Konga, tenete conti su Excel o fogli a parte?",o:["No","Sì, qualcuno","Sì, molti"]},
+ ]},
+ {t:"Cosa pubblicate e vendete", q:[
+  {id:"titoli",t:"Quanti titoli avete in catalogo?",h:"Konga Lite gestisce al massimo 250 articoli.",o:["Meno di 20","20–100","100–250","Più di 250"]},
+  {id:"novita",t:"Quante novità pubblicate in un anno?",o:["0–3","4–10","11–25","Più di 25"]},
+  {id:"altro",m:1,t:"Oltre ai libri cartacei, cosa vendete?",h:"Anche più risposte.",o:["E-book","Audiolibri","Gadget / merchandising","Servizi editoriali a terzi","Riviste o abbonamenti","Corsi o eventi a pagamento","Diritti esteri","Nient'altro"]},
+  {id:"ebook_isbn",t:"Gli e-book hanno l'ISBN?",o:["Sì, tutti","Solo alcuni","No","Non vendiamo e-book"]},
+  {id:"royalty",t:"Come calcolate i diritti d'autore?",o:["A mano / Excel","Con Konga","Li calcola il distributore","Non paghiamo diritti d'autore"]},
+ ]},
+ {t:"Canali di vendita", q:[
+  {id:"canali",g:1,t:"Quanto conta ciascun canale per voi?",h:"Una risposta per riga.",r:["Distributore → librerie","Librerie servite direttamente","Amazon / marketplace","Sito proprio","Fiere e presentazioni","Scuole, biblioteche, enti","Piattaforme e-book","Clienti esteri"],o:PESO},
+  {id:"distr",t:"Avete un distributore?",o:["Sì, uno nazionale","Sì, più di uno","No, vendiamo direttamente"]},
+  {id:"iva_rese",t:"L'IVA sui libri consegnati al distributore la calcolate…",h:"Se non lo sai, lo chiediamo al commercialista.",o:["Forfettizzazione delle rese","Sulle copie vendute","Dipende dal titolo",NS]},
+  {id:"distr_formato",t:"In che formato arrivano i rendiconti del distributore?",o:["Excel o CSV","PDF","Su un portale web","Carta","Non abbiamo distributore"]},
+  {id:"distr_freq",t:"Ogni quanto arrivano i rendiconti?",o:["Ogni mese","Ogni trimestre","Ogni semestre","Altro / non abbiamo distributore"]},
+  {id:"deposito",t:"Lasciate libri in conto deposito alle librerie?",o:["Spesso","A volte","Mai"]},
+  {id:"rese_chi",t:"Le rese delle librerie chi le gestisce?",o:["Il distributore","Noi","Entrambi","Non abbiamo rese"]},
+  {id:"pa",t:"Vendete alla pubblica amministrazione (scuole statali, biblioteche comunali…)?",o:["Spesso","A volte","Mai"]},
+ ]},
+ {t:"Sito e vendite online", q:[
+  {id:"sito",t:"Il vostro sito vende direttamente?",o:["Sì, ha un negozio online","È una vetrina con link ad altri negozi","Non abbiamo un sito"]},
+  {id:"piattaforma",t:"Su che piattaforma è il negozio?",o:["WooCommerce (WordPress)","Shopify","PrestaShop","Wix / Squarespace","Altro",NS,"Non abbiamo negozio"]},
+  {id:"ordini",t:"Quanti ordini online ricevete in un mese?",o:["0–10","10–50","50–200","Più di 200","Non vendiamo online"]},
+  {id:"metodo_pref",t:"Online, i clienti pagano più spesso con…",o:["Carta","PayPal","Satispay","Bonifico",NS,"Non vendiamo online"]},
+  {id:"fattura_privati",t:"I clienti online chiedono la fattura?",o:["Mai","A volte","Spesso"]},
+  {id:"rimborsi",t:"Resi o rimborsi da clienti online?",o:["Quasi mai","A volte","Spesso"]},
+  {id:"ue",t:"Spedite a privati in altri Paesi UE?",o:["No","Raramente","Regolarmente"]},
+  {id:"extraue",t:"Spedite fuori dall'UE (Svizzera, Regno Unito, USA…)?",o:["No","Raramente","Regolarmente"]},
+  {id:"spedizione",t:"Chi prepara e spedisce i pacchi?",o:["Noi","Un magazzino / logistica esterna","Il distributore"]},
+  {id:"preordini",t:"Fate preordini o crowdfunding?",o:["Mai","Ogni tanto","Spesso"]},
+ ]},
+ {t:"Incassi oggi", q:[
+  {id:"strumenti",m:1,t:"Quali strumenti di incasso usate oggi?",h:"Anche più risposte.",o:["Stripe","PayPal","Satispay","SumUp","POS della banca","Bonifico","RiBa","Contrassegno","Contanti","Klarna / rate","Altro"]},
+  {id:"paypal_tipo",t:"Il conto PayPal è…",o:["Business, intestato all'azienda","Personale","Non usiamo PayPal",NS]},
+  {id:"stripe_stato",t:"Stripe…",o:["Lo usiamo da tempo","L'abbiamo appena aperto","Non lo usiamo"]},
+  {id:"saldi",t:"Il saldo su PayPal / Stripe…",o:["Va in banca automaticamente","Lo trasferisco ogni tanto","Resta lì a lungo","Non usiamo questi servizi"]},
+  {id:"b2b_paga",m:1,t:"Librerie, enti e aziende come vi pagano?",h:"Anche più risposte.",o:["Bonifico","RiBa","Carta","Assegno","Contanti"]},
+  {id:"ritardi",t:"Clienti che pagano in ritardo?",o:["Raramente","A volte","Spesso"]},
+ ]},
+ {t:"Fiere ed eventi", q:[
+  {id:"fiere_n",t:"A quante fiere o eventi con vendita partecipate in un anno?",o:["Nessuna","1–5","6–15","Più di 15"]},
+  {id:"fiere_inc",m:1,t:"In fiera come incassate?",h:"Anche più risposte.",o:["Contanti","POS / SumUp","Satispay","PayPal (QR)","Non facciamo fiere"]},
+  {id:"fiere_altro",t:"In fiera vendete anche cose che non sono libri?",o:["Sì","No","Non facciamo fiere"]},
+  {id:"rt",t:"Avete un registratore di cassa telematico?",o:["Sì","No",NS]},
+  {id:"pos_rt",t:"Avete associato il POS al registratore sul sito dell'Agenzia delle Entrate (novità 2026)?",o:["Sì","No","Non sapevo di doverlo fare"]},
+ ]},
+ {t:"Konga e fatture", q:[
+  {id:"k_ed",t:"Quale edizione di Konga avete?",o:["Lite","Mono","Pro",NS]},
+  {id:"k_mod",m:1,t:"Quali moduli usate?",h:"Anche più risposte.",o:["Contabilità","Vendite / fatture","Magazzino","Fattura elettronica (Legal Solution)","Ordini","Centri di costo","Punto vendita",NS]},
+  {id:"k_agg",t:"Konga è aggiornato all'ultima versione?",o:["Sì","No",NS]},
+  {id:"k_os",t:"Su che computer gira Konga?",o:["Windows","Mac","Linux","In cloud"]},
+  {id:"k_pc",t:"Quel computer è…",o:["Un fisso in ufficio","Un portatile","Un server",NS]},
+  {id:"k_utenti",t:"Quante persone usano Konga?",o:["1","2–3","Più di 3"]},
+  {id:"k_sdi",t:"Le fatture elettroniche le inviate…",o:["Tutte da Konga","In parte da Konga","Con il portale dell'Agenzia","Con un altro programma"]},
+  {id:"k_intermediario",t:"Chi trasmette le fatture allo SDI per conto vostro?",o:["Il servizio collegato a Konga","Il commercialista","Un altro servizio",NS]},
+  {id:"cod_dest",t:"Sul sito dell'Agenzia avete registrato un indirizzo di ricezione (codice destinatario o PEC) per le fatture dei fornitori?",o:["Sì","No",NS]},
+  {id:"conservazione",t:"Avete attivato la conservazione digitale delle fatture?",o:["Sì, con l'Agenzia delle Entrate","Sì, con il servizio di Konga","Sì, con entrambi","No",NS]},
+  {id:"fornitori_esteri",m:1,t:"Pagate servizi a fornitori esteri?",h:"Questi richiedono un adempimento mensile. Anche più risposte.",o:["Pubblicità Meta / Google","Amazon (commissioni o KDP)","Software in abbonamento (Adobe, Canva…)","Stampatori esteri","Stripe / PayPal / SumUp","Nessuno",NS]},
+  {id:"k_corr",t:"Le vendite a privati (sito, fiere) le registrate in Konga…",o:["Ogni giorno","Ogni mese","Le registra il commercialista","Non le registriamo"]},
+  {id:"k_mag",t:"Il magazzino in Konga è aggiornato?",o:["Sì, sempre","Più o meno","No, non lo usiamo"]},
+  {id:"k_ass",t:"Avete il contratto di assistenza EasyByte attivo?",o:["Sì","No",NS]},
+  {id:"k_backup",t:"Backup dei dati di Konga?",o:["Automatico, anche fuori ufficio","Lo faccio a mano ogni tanto","Non facciamo backup",NS]},
+ ]},
+ {t:"Banca", q:[
+  {id:"b_conti",t:"Quanti conti correnti aziendali avete?",o:["1","2","3 o più"]},
+  {id:"b_tipo",t:"Che tipo di banca?",o:["Tradizionale","Online (Qonto, Revolut, Fineco…)","Entrambe"]},
+  {id:"b_export",t:"I movimenti bancari li scaricate come…",o:["Excel o CSV","PDF","File CBI","Non li scarico",NS]},
+  {id:"b_causale",t:"Nei bonifici i clienti indicano il numero della fattura?",o:["Quasi sempre","A volte","Quasi mai"]},
+ ]},
+ {t:"Tempo, priorità, sicurezza", q:[
+  {id:"ore",t:"Quante ore al mese dedicate a incassi, registrazioni e fatture?",o:["Meno di 5","5–15","15–30","Più di 30"]},
+  {id:"peso",m:1,max:3,t:"Cosa vi pesa di più?",h:"Al massimo tre risposte.",o:["Registrare le vendite online","Abbinare bonifici e fatture","Rendiconti del distributore","Emettere fatture","Solleciti","Magazzino","Diritti d'autore","Adempimenti per fornitori esteri"]},
+  {id:"auto",t:"Quanta automazione volete?",o:["Solo report, registro io","Bozze pronte che confermo io","Il più automatico possibile"]},
+  {id:"accessi",t:"Chi deve poter vedere Stripe, PayPal e banca?",o:["Solo io","Io e un collaboratore","Anche il commercialista"]},
+  {id:"tfa",t:"Sugli account di pagamento e banca avete la verifica in due passaggi (codice via SMS o app)?",o:["Su tutti","Su alcuni","Su nessuno","Non so cos'è"]},
+  {id:"pass_cond",t:"Ci sono password condivise tra più persone?",o:["No","Sì, qualcuna","Sì, quasi tutte"]},
+  {id:"quando",t:"Entro quando vorreste il nuovo sistema funzionante?",o:["Entro un mese","Entro tre mesi","Entro l'anno","Senza fretta"]},
+ ]},
+];
+
+var NOTE = [
+ "Ad esempio: soci, collaboratori esterni, come vi dividete il lavoro con il commercialista.",
+ "Ad esempio: collane, coedizioni, titoli fuori catalogo, attività diverse dai libri.",
+ "Ad esempio: nome del distributore, accordi particolari, librerie o enti con cui lavorate di più.",
+ "Ad esempio: indirizzo del sito, plugin di pagamento installati, problemi con ordini o spedizioni.",
+ "Ad esempio: cosa non funziona oggi con PayPal, Stripe o la banca, pagamenti che vi creano confusione.",
+ "Ad esempio: fiere principali, come tenete il conto delle copie vendute, cosa vendete oltre ai libri.",
+ "Ad esempio: chi vi segue per Konga, funzioni che non usate, errori o scarti delle fatture.",
+ "Ad esempio: nome della banca, servizi di home banking usati, conti dedicati a usi particolari.",
+ "Ad esempio: cosa vi farebbe risparmiare più tempo, dubbi o timori sull'automazione."
+];
+var ROM = "ABCDEFGHIJ";
+var ALL = [];
+SEZ.forEach(function(s,si){ s.q.forEach(function(q){ q.sez=s.t; q.sig=ROM[si]; ALL.push(q); }); });
+var A = {};
+var LS = "questionario-titolare-voltalacarta-v2";
+function $(id){ return document.getElementById(id); }
+function find(id){ for(var i=0;i<ALL.length;i++) if(ALL[i].id===id) return ALL[i]; }
+function load(){ try{ var v=JSON.parse(localStorage.getItem(LS)||"null"); if(v&&typeof v==="object") A=v; }catch(e){} }
+function store(){ try{ localStorage.setItem(LS,JSON.stringify(A)); }catch(e){} }
+
+function answered(q){
+  var v=A[q.id];
+  if(q.g) return !!v && q.r.every(function(r){ return v[r]; });
+  if(q.m) return Array.isArray(v) && v.length>0;
+  return !!v;
+}
+
+function el(tag,cls,txt){ var e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+
+function render(){
+  var main=$("q"), n=0;
+  main.textContent="";
+  SEZ.forEach(function(s,si){
+    var sec=el("section"), head=el("div","sec-head");
+    head.appendChild(el("span","sig","Fascicolo "+ROM[si]));
+    head.appendChild(el("h2",null,s.t));
+    sec.appendChild(head);
+    s.q.forEach(function(q){
+      n++; q.n=n;
+      var d=el("div","q"); d.id="q-"+q.id;
+      var top=el("div","q-top"); top.appendChild(el("span","qn",String(n))); top.appendChild(el("p","qt",q.t)); d.appendChild(top);
+      if(q.h) d.appendChild(el("p","qhint",q.h));
+      if(q.g){
+        var w=el("div","grid"), t=el("table"), th=el("thead"), tr=el("tr");
+        tr.appendChild(el("th",null,""));
+        q.o.forEach(function(o){ var c=el("th",null,o); c.scope="col"; tr.appendChild(c); });
+        th.appendChild(tr); t.appendChild(th);
+        var tb=el("tbody");
+        q.r.forEach(function(r){
+          var row=el("tr"); row.appendChild(el("td",null,r));
+          q.o.forEach(function(o){
+            var td=el("td"), b=el("button","cell");
+            b.type="button"; b.setAttribute("aria-label",r+": "+o);
+            b.setAttribute("data-q",q.id); b.setAttribute("data-r",r); b.setAttribute("data-v",o);
+            td.appendChild(b); row.appendChild(td);
+          });
+          tb.appendChild(row);
+        });
+        t.appendChild(tb); w.appendChild(t); d.appendChild(w);
+      } else {
+        var g=el("div","opts"); g.setAttribute("role","group"); g.setAttribute("aria-label",q.t);
+        q.o.forEach(function(o){
+          var b=el("button","opt"+(o===NS?" unsure":""),o);
+          b.type="button"; b.setAttribute("data-q",q.id); b.setAttribute("data-v",o);
+          g.appendChild(b);
+        });
+        d.appendChild(g);
+      }
+      sec.appendChild(d);
+    });
+    var box=el("div","note"), key="note_"+ROM[si], lab=el("label");
+    lab.htmlFor=key; lab.textContent="Vuoi aggiungere qualcosa? "; lab.appendChild(el("span",null,"(facoltativo)"));
+    var ta=el("textarea"); ta.id=key; ta.setAttribute("data-note",key); ta.value=A[key]||"";
+    ta.placeholder="Scrivi liberamente…";
+    box.appendChild(lab); box.appendChild(el("p",null,NOTE[si]||"")); box.appendChild(ta);
+    sec.appendChild(box);
+    main.appendChild(sec);
+  });
+  paint();
+}
+
+function paint(){
+  var bs=document.querySelectorAll("[data-q]");
+  for(var i=0;i<bs.length;i++){
+    var b=bs[i], q=find(b.getAttribute("data-q")), v=A[q.id], on=false, val=b.getAttribute("data-v");
+    if(q.g) on=!!(v && v[b.getAttribute("data-r")]===val);
+    else if(q.m) on=Array.isArray(v) && v.indexOf(val)>=0;
+    else on=(v===val);
+    b.setAttribute("aria-pressed",on?"true":"false");
+  }
+  var done=0;
+  ALL.forEach(function(q){ var ok=answered(q); if(ok) done++; var d=$("q-"+q.id); if(d) d.classList.toggle("done",ok); });
+  $("count").textContent=done+" di "+ALL.length;
+  $("fill").style.width=(done/ALL.length*100)+"%";
+}
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest ? e.target.closest("[data-q]") : null; if(!b) return;
+  var q=find(b.getAttribute("data-q")), v=b.getAttribute("data-v");
+  if(q.g){
+    var cur={}, old=A[q.id]||{}; for(var k in old) cur[k]=old[k];
+    var r=b.getAttribute("data-r");
+    if(cur[r]===v) delete cur[r]; else cur[r]=v;
+    A[q.id]=cur;
+  } else if(q.m){
+    var arr=Array.isArray(A[q.id])?A[q.id].slice():[];
+    var excl=["Nient'altro","Non facciamo fiere","Nessuno",NS];
+    if(arr.indexOf(v)>=0) arr=arr.filter(function(x){return x!==v;});
+    else{
+      if(excl.indexOf(v)>=0) arr=[];
+      else arr=arr.filter(function(x){return excl.indexOf(x)<0;});
+      if(q.max && arr.length>=q.max) arr.shift();
+      arr.push(v);
+    }
+    A[q.id]=arr;
+  } else {
+    A[q.id]=(A[q.id]===v)?undefined:v;
+  }
+  if(A[q.id]===undefined) delete A[q.id];
+  store(); paint();
+});
+
+var noteT=null;
+document.addEventListener("input",function(e){
+  var k=e.target.getAttribute && e.target.getAttribute("data-note"); if(!k) return;
+  var v=e.target.value;
+  if(v.trim()) A[k]=v; else delete A[k];
+  clearTimeout(noteT); noteT=setTimeout(store,400);
+});
+
+function valore(q){
+  var v=A[q.id];
+  if(Array.isArray(v)) return v.join(" | ");
+  return v||"";
+}
+function righe(){
+  var out=[];
+  SEZ.forEach(function(s,si){
+    s.q.forEach(function(q){
+      if(q.g){
+        var v=A[q.id]||{};
+        q.r.forEach(function(r){ out.push([q.n, q.sig+". "+q.sez, q.id+"."+r, q.t+" — "+r, v[r]||""]); });
+      } else out.push([q.n, q.sig+". "+q.sez, q.id, q.t, valore(q)]);
+    });
+    out.push(["", ROM[si]+". "+s.t, "note_"+ROM[si], "Note facoltative", (A["note_"+ROM[si]]||"").trim()]);
+  });
+  return out;
+}
+function csvCell(x){ x=String(x); return /[";\n\r]/.test(x) ? '"'+x.replace(/"/g,'""')+'"' : x; }
+function oggi(){ var d=new Date(); function p(n){return (n<10?"0":"")+n;} return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate()); }
+
+function scarica(){
+  var rows=[["n","sezione","codice","domanda","risposta"]].concat(righe());
+  rows.push(["","","_compilato_il","Data di compilazione",oggi()]);
+  var csv="﻿"+rows.map(function(r){ return r.map(csvCell).join(";"); }).join("\r\n");
+  var nome="questionario-titolare-"+oggi()+".csv";
+  var msg=$("msg");
+  try{
+    var blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    if(window.navigator && window.navigator.msSaveOrOpenBlob){ window.navigator.msSaveOrOpenBlob(blob,nome); }
+    else{
+      var url=URL.createObjectURL(blob), a=document.createElement("a");
+      a.href=url; a.download=nome; document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); },1000);
+    }
+    var mancanti=ALL.filter(function(q){return !answered(q);}).length;
+    msg.className="msg "+(mancanti?"warn":"ok");
+    msg.textContent = mancanti
+      ? "Scaricato «"+nome+"». Mancano "+mancanti+" risposte: puoi completarle e scaricare di nuovo, oppure mandarlo così."
+      : "Scaricato «"+nome+"» nella cartella Download. Ora allegalo all'email di risposta.";
+  }catch(err){
+    msg.className="msg warn";
+    msg.textContent="Il browser non ha permesso il download. Usa «Copia le risposte come testo» e incollale nell'email.";
+  }
+  $("end").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function testo(){
+  var L=["Questionario del titolare – Volta la Carta – "+oggi()], sez="";
+  righe().forEach(function(r){ if(r[1]!==sez){ sez=r[1]; L.push("\n"+sez.toUpperCase()); } L.push((r[0]?r[0]+". ":"✎ ")+r[3]+" → "+(r[4]||"—")); });
+  return L.join("\n");
+}
+$("dl").addEventListener("click",scarica);
+$("dl-top").addEventListener("click",scarica);
+$("copy").addEventListener("click",function(){
+  var t=testo(), ta=$("sum"), msg=$("msg"); ta.value=t; ta.hidden=false;
+  function fallback(){ ta.focus(); ta.select(); try{ document.execCommand("copy"); msg.className="msg ok"; msg.textContent="Testo copiato: incollalo nell'email."; }catch(e){ msg.className="msg warn"; msg.textContent="Seleziona il testo qui sotto e copialo."; } }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){ msg.className="msg ok"; msg.textContent="Testo copiato: incollalo nell'email."; },fallback);
+  } else fallback();
+});
+
+load(); render();
+</script>
+</body>
+</html>

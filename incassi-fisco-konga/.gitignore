@@ -1,0 +1,15 @@
+# Export con dati reali: non vanno su GitHub
+*.csv
+!dati/*.csv
+*.jsonl
+eventi_visti.txt
+Fornitori esteri/
+
+# Segreti
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
