@@ -14,6 +14,10 @@ Aggiornato al 2026-11-21. Spunta e sposta in fondo ciò che è fatto.
 
 ## Prima del lancio del nuovo rilegaretesi.it (metà gennaio 2027)
 
+Avanzamento aggiornato ogni lunedì nel [monitoraggio del sito](monitoraggio/README.md).
+
+- [ ] `rt2`, workflow `pages.yml`: installare i font con versioni fissate e `--ignore-scripts` (oggi `npm i` senza lockfile) e fissare le action per SHA
+
 - [ ] Scegliere l'hosting di produzione tenendo conto degli header (GitHub Pages non li gestisce)
 - [ ] Pagamento solo tramite pagina ospitata dal PSP; verifica della firma dei webhook
 - [ ] Caricamento PDF tramite funzione serverless e storage privato; regola di cancellazione dei file

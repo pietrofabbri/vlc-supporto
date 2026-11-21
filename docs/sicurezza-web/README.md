@@ -17,6 +17,7 @@ Sintesi schematica del lavoro sulla sicurezza di siti e app (ottobre-novembre 20
 | 5 | [Cronologia](05-cronologia.md) | Le tappe del lavoro, versione per versione |
 | 6 | [Lezioni apprese](06-lezioni-apprese.md) | Errori trovati e trappole tecniche da ricordare |
 | 7 | [Da fare](07-da-fare.md) | Azioni aperte con priorità e scadenze |
+| 8 | [Monitoraggio del sito](monitoraggio/README.md) | Revisione settimanale automatica di `rt2`, avanzamento verso il lancio, report |
 
 ## Collegamenti nel repository
 
