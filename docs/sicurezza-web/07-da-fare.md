@@ -2,11 +2,12 @@
 
 [← Sicurezza web](README.md) · [← vlc-supporto](../../README.md)
 
-Aggiornato al 2026-11-21. Spunta e sposta in fondo ciò che è fatto.
+Aggiornato al 2026-11-23. Spunta e sposta in fondo ciò che è fatto.
 
 ## Subito
 
 - [ ] **rilegaretesi.it attuale**: aggiornare WordPress e plugin, togliere quelli inutili, MFA sugli admin, backup provato → [applicazione](03-applicazione-progetti-vlc.md#rilegaretesiit-attuale-finché-resta-online)
+- [ ] **WordPress 7.1.5 (18/11/2026)** su rilegaretesi.it e voltalacarta.it: corregge un'escalation di privilegi senza autenticazione; la 7.1.4 correggeva una falla già sfruttata → [osservatorio](monitoraggio/osservatorio-componenti.md)
 - [ ] **Cookie sul sito WooCommerce attuale**: banner di consenso o rimozione di Google Analytics e Meta Pixel → priorità 1 di [ecommerce-normativa](../../ecommerce-normativa/README.md)
 - [ ] **voltalacarta.it**: togliere le pagine di prova pubbliche e i duplicati
 - [ ] **Account critici** (GitHub, Google, registrar, hosting, Stripe/PayPal): MFA o passkey, codici di recupero nel password manager

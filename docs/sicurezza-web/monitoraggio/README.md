@@ -15,6 +15,8 @@ Revisione **settimanale** della sicurezza del nuovo rilegaretesi.it ([`voltalaca
 
 L'attività **non modifica il codice del sito**: propone le correzioni nel report.
 
+Dal 23/11/2026 tiene anche l'[osservatorio dei componenti](osservatorio-componenti.md): patch, vulnerabilità e accortezze su tutti i componenti di tutti i siti, con un confronto mensile (primo lunedì del mese) e un avviso immediato per i casi gravi. Il controllo degli header è sospeso finché lo staging e la produzione non sono raggiungibili dall'ambiente dell'attività.
+
 ## Avanzamento verso il lancio
 
 Profilo del progetto: **C · E-commerce** con moduli **UGC** (upload dei PDF) e **API** (endpoint del Worker). Livello ASVS 5.0 **L2**. Lancio previsto: metà gennaio 2027.
